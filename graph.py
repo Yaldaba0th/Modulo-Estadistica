@@ -12,12 +12,16 @@ def reservas_mes(y1, y2):
         count[d['year']-y1][d['month']-1] = d['count']
     #count[1][1] = 2
     #count[1][11] = 2
-    #count[2][11] = 2
+    #count[1][10] = 2
+    #count[2][10] = 2
+    #count[4][10] = 2
+    ydif = y2 - y1 + 1
+    width = 0.5
     r = np.arange(12)
     fig = plt.figure()
     for y in range(y1, y2+1):
-        plt.bar(r, count[y-y1], label=str(y))
-    plt.xticks(r, range(1,13))
+        plt.bar(r*ydif+(y-y1)*width, count[y-y1], label=str(y), width=width)
+    plt.xticks(r*ydif+width*ydif/2, range(1,13))
     plt.legend()
-    #fig.savefig('./test.png')
+    fig.savefig('./test.png')
     return fig

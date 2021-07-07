@@ -3,7 +3,9 @@ Modulo de analisis estadistico para sistema gestion cabañas.
 
 # Integrantes:
 Ignacio Castro
+
 Enzo Meneses
+
 Sergio Pacheco
 
 # Links:

@@ -11,7 +11,7 @@ def query_to_json(query):
     return jsonify(result)
 
 
-engine = 'mysql+pymysql://nacho:18752718@127.0.0.1/igmava'
+engine = 'mysql+pymysql://root@127.0.0.1/igmava'
 db_connect = create_engine(engine)
 app = Flask(__name__)
 api = Api(app)
@@ -27,14 +27,15 @@ def reservas_mes(y1, y2):
     query = conn.execute(q)
     return query_to_json(query)
 
+
 @app.route('/reservas_region', methods=['GET'])
 def reservas_region():
     conn = db_connect.connect()
-    q = "SELECT Procedencia, COUNT(*) as count FROM Cliente  GROUP BY Procedencia;"
+    q = "SELECT Procedencia, COUNT(*) as count FROM Cliente \
+         GROUP BY Procedencia;"
     query = conn.execute(q)
     return query_to_json(query)
 
+
 if __name__ == '__main__':
     app.run(port='8007')
-
-

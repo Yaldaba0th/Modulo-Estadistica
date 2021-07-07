@@ -2,7 +2,7 @@ import requests
 import numpy as np
 import matplotlib.pyplot as plt
 
-host = 'http://127.0.0.1:8000'
+host = 'http://127.0.0.1:8007'
 
 months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
           'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre',

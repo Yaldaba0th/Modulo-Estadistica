@@ -52,6 +52,10 @@ VALUES
 ('13948237-4', 'Maria Gonzales', 'Valparaiso', 84472647, 'example@hotmail.com', 'Airbnb'),
 ('9345872-k', 'Alberto Medina', 'Biobio', 83647183, 'ejemplo@uach.cl', 'directo'),
 ('9995872-k', 'Jose Josephson', 'Biobio', 43247183, 'exa@uach.cl', 'directo'),
+('9995873-k', 'Jose Lopez', 'Los Rios', 43247183, 'exa@uach.cl', 'directo'),
+('9995874-k', 'Juan Josephson', 'Los Rios', 43247183, 'exa@uach.cl', 'directo'),
+('9995875-k', 'Andres Josephson', 'Los Rios', 43247183, 'exa@uach.cl', 'directo'),
+('9995876-k', 'Antonia Gomez', 'Los Lagos', 43247183, 'exa@uach.cl', 'directo'),
 ('00000000-0', '0', '0', 0, '0', '0');
 
 INSERT INTO Cabin

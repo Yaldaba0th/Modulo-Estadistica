@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1367</width>
-    <height>619</height>
+    <width>1411</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,49 +21,49 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
-      <width>1331</width>
-      <height>491</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
       <y>10</y>
-      <width>161</width>
-      <height>61</height>
+      <width>1391</width>
+      <height>501</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="styleSheet">
-        <string notr="true">font: 57 20pt &quot;Ubuntu&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Año:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="agno">
-       <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Ubuntu&quot;;</string>
-       </property>
-       <property name="minimum">
-        <number>2010</number>
-       </property>
-       <property name="maximum">
-        <number>2021</number>
-       </property>
-       <property name="value">
-        <number>2021</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>0</y>
+       <width>161</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">font: 57 20pt &quot;Ubuntu&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Año:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="agno">
+        <property name="styleSheet">
+         <string notr="true">font: 20pt &quot;Ubuntu&quot;;</string>
+        </property>
+        <property name="minimum">
+         <number>2010</number>
+        </property>
+        <property name="maximum">
+         <number>2021</number>
+        </property>
+        <property name="value">
+         <number>2021</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -71,7 +71,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1367</width>
+     <width>1411</width>
      <height>22</height>
     </rect>
    </property>

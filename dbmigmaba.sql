@@ -15,7 +15,7 @@ CREATE TABLE Cliente(
 
 CREATE TABLE Reserva(
 	ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	RUT VARCHAR(20) NOT NULL,
+	RUT VARCHAR(50) NOT NULL,
 	Check_in DATE NOT NULL,
 	Check_out DATE NOT NUll,
 	Costo INT NOT NULL,
@@ -52,10 +52,6 @@ VALUES
 ('13948237-4', 'Maria Gonzales', 'Valparaiso', 84472647, 'example@hotmail.com', 'Airbnb'),
 ('9345872-k', 'Alberto Medina', 'Biobio', 83647183, 'ejemplo@uach.cl', 'directo'),
 ('9995872-k', 'Jose Josephson', 'Biobio', 43247183, 'exa@uach.cl', 'directo'),
-('9995873-k', 'Jose Lopez', 'Los Rios', 43247183, 'exa@uach.cl', 'directo'),
-('9995874-k', 'Juan Josephson', 'Los Rios', 43247183, 'exa@uach.cl', 'directo'),
-('9995875-k', 'Andres Josephson', 'Los Rios', 43247183, 'exa@uach.cl', 'directo'),
-('9995876-k', 'Antonia Gomez', 'Los Lagos', 43247183, 'exa@uach.cl', 'directo'),
 ('00000000-0', '0', '0', 0, '0', '0');
 
 INSERT INTO Cabin
@@ -70,10 +66,7 @@ VALUES
 (2, '13948237-4', '2020-12-14', '2020-12-15', 80, 1),
 (3, '9345872-k', '2020-12-16', '2020-12-20', 600, 0),
 (4, '9345872-k', '2020-01-10', '2020-01-20', 600, 0),
-(5, '9345872-k', '2020-02-10', '2020-02-20', 600, 0),
-(6, '9345872-k', '2020-03-01', '2020-03-20', 600, 0),
-(7, '9345872-k', '2021-04-01', '2021-04-20', 600, 0),
-(8, '9345872-k', '2021-02-01', '2021-02-20', 600, 0);
+(5, '9345872-k', '2021-12-01', '2021-12-20', 600, 0);
 
 INSERT INTO CabsRes
 VALUES

@@ -28,13 +28,11 @@ def reservas_mes(y1, y2):
     return query_to_json(query)
 
 
-@app.route('/reservas_region/<y>', methods=['GET'])
-def reservas_region(y):
+@app.route('/reservas_region', methods=['GET'])
+def reservas_region():
     conn = db_connect.connect()
     q = "SELECT Procedencia, COUNT(*) as count FROM Cliente \
-	 LEFT JOIN Reserva on Cliente.RUT = Reserva.RUT \
-	 WHERE Year(Check_in) = {} \
-         GROUP BY Procedencia".format(y)
+         GROUP BY Procedencia;"
     query = conn.execute(q)
     return query_to_json(query)
 

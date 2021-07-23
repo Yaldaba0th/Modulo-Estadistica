@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib.backends.backend_qt5agg \
     import FigureCanvasQTAgg as FigureCanvas
+from scipy.stats import linregress
 
 
 uifile_1 = 'UIfiles/menu.ui'
@@ -29,6 +30,9 @@ form_2, base_2 = uic.loadUiType(uifile_2)
 
 uifile_3 = 'UIfiles/grafico_por_region.ui'
 form_3, base_3 = uic.loadUiType(uifile_3)
+
+uifile_4 = 'UIfiles/sugerencias.ui'
+form_4, base_4 = uic.loadUiType(uifile_4)
 
 global host
 host = "http://127.0.0.1:8007"
@@ -42,6 +46,7 @@ class Menu(base_1, form_1):
         # Eventos
         self.clientesMes.clicked.connect(self.ClientesMes)
         self.clientesRegion.clicked.connect(self.ClientesRegion)
+        self.suger.clicked.connect(self.SugerenciasCliente)
 
     def ClientesMes(self):
         self.cm = Clientes_mes()
@@ -51,11 +56,9 @@ class Menu(base_1, form_1):
         self.cr = Clientes_region()
         self.cr.show()
 
-    def sugerencias():
-        r = requests.get('{}/sugerencias'.format(host))
-        r = r.json()['data']
-        sugs = [d["Sugerencia"] for d in r]
-        #sugs tiene las sugerencias como lista de strings
+    def SugerenciasCliente(self):
+        self.sgr = Sugrencias()
+        self.sgr.show()
 
 
 class Clientes_mes(base_2, form_2):
@@ -77,13 +80,22 @@ class Clientes_mes(base_2, form_2):
         for d in r:
             count[d['year']-y1][d['month']-1] = d['count']
 
+        self.MplWidget.canvas.ax.set_title('Arrendatarios por mes')
         self.MplWidget.canvas.ax.bar(x=range(12),
-                                    height=count[0],
-                                    color="orange")
-        self.MplWidget.canvas.ax.set_ylabel('N° de clientes por mes')
+                                    height=count[0])
+        self.MplWidget.canvas.ax.set_ylabel('N° de arrendatarios por mes')
         self.MplWidget.canvas.ax.set_xticks(range(12))
         self.MplWidget.canvas.ax.set_xticklabels(self.months, rotation=25)
         self.MplWidget.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        self.MplWidget.canvas.ax.set_ylim(0)
+        #Linea de tendencia
+        x = np.array([0,1,2,3,4,5,6,7,8,9,10,11])
+        y = count[0]
+        slope, intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplWidget.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia', color='orange')
+        self.MplWidget.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
+
+        self.MplWidget.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         self.MplWidget.canvas.draw()
         self.cargarEstadisticos(count[0])
 
@@ -128,13 +140,22 @@ class Clientes_mes(base_2, form_2):
             count[d['year']-y1][d['month']-1] = d['count']
 
         self.MplWidget.canvas.ax.clear()
+        self.MplWidget.canvas.ax.set_title('Arrendatarios por mes')
         self.MplWidget.canvas.ax.bar(x=range(12),
-                                    height=count[0],
-                                    color="orange")
-        self.MplWidget.canvas.ax.set_ylabel('N° de clientes por mes')
+                                    height=count[0])
+        self.MplWidget.canvas.ax.set_ylabel('N° de arrendatarios por mes')
         self.MplWidget.canvas.ax.set_xticks(range(12))
         self.MplWidget.canvas.ax.set_xticklabels(self.months, rotation=25)
         self.MplWidget.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        self.MplWidget.canvas.ax.set_ylim(0)
+        #Linea de tendencia
+        x = np.array([0,1,2,3,4,5,6,7,8,9,10,11])
+        y = count[0]
+        slope, intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplWidget.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia',  color='orange')
+        self.MplWidget.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
+
+        self.MplWidget.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         self.MplWidget.canvas.draw()
         self.cargarEstadisticos(count[0])
 
@@ -162,6 +183,7 @@ class Clientes_region(base_3, form_3):
                 pass
             
         self.MplRegion.canvas.ax.clear()
+        self.MplRegion.canvas.ax.set_title('Arrendatarios por región')
         self.MplRegion.canvas.ax.bar(x=range(15), height=resreg, width=0.8,
                     bottom=0, align='center', color=None, linewidth=None, xerr=None, yerr=None)
         self.MplRegion.canvas.ax.set_ylabel('Clientes por región')
@@ -169,6 +191,16 @@ class Clientes_region(base_3, form_3):
         self.MplRegion.canvas.ax.set_xticklabels(['I', 'II', 'III', 'IV', 'V', 'VI',
                                     'VII', 'VIII', 'IX', 'X', 'XI',
                                     'XII', 'XIII', 'XIV', 'XV'])
+        self.MplRegion.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        self.MplRegion.canvas.ax.set_ylim(0)
+
+        x = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14])
+        y = resreg
+        slope, intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplRegion.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia', color='orange')
+        self.MplRegion.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
+
+        self.MplRegion.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         self.MplRegion.canvas.draw()
         self.cargarEstadisticos(resreg)
 
@@ -210,19 +242,43 @@ class Clientes_region(base_3, form_3):
                 resreg[self.regiones.index(d["Procedencia"])] = d["count"]
             except ValueError:
                 pass
+        
+        self.MplRegion.canvas.ax.clear()
+        self.MplRegion.canvas.ax.set_title('Arrendatarios por region')
+        self.MplRegion.canvas.ax.bar(x=range(15), height=resreg, width=0.8,
+                    bottom=0, align='center', color=None, linewidth=None, xerr=None, yerr=None)
+        self.MplRegion.canvas.ax.set_ylabel('Clientes por región')
+        self.MplRegion.canvas.ax.set_xticks(range(15))
+        self.MplRegion.canvas.ax.set_xticklabels(['I', 'II', 'III', 'IV', 'V', 'VI',
+                                    'VII', 'VIII', 'IX', 'X', 'XI',
+                                    'XII', 'XIII', 'XIV', 'XV'])
+        self.MplRegion.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        self.MplRegion.canvas.ax.set_ylim(0)
+
+        x = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14])
+        y = resreg
+        slope, intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplRegion.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia', color='orange')
+        self.MplRegion.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
+
+        self.MplRegion.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
+        self.MplRegion.canvas.draw()
+        self.cargarEstadisticos(resreg)
         #resreg ahora tiene las regiones en el mismo formato que la otra forma
 
-
-
-
-
+class Sugrencias(base_4, form_4):
+    def __init__(self, *args, **kwargs):
+        super(base_4, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+        r = requests.get('{}/sugerencias'.format(host))
+        r = r.json()['data']
+        sugs = [d["Sugerencia"] for d in r]
+        #sugs tiene las sugerencias como lista de strings  
+        self.tableSuger.setRowCount(0)
+        for row, sug in enumerate(sugs):   
+            self.tableSuger.insertRow(row)
+            self.tableSuger.setItem(row, 0, QTableWidgetItem(sug))
         
-        
-
-
-        
-
-    
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

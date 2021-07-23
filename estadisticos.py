@@ -1,28 +1,16 @@
-   """
-        print(count[0])
-        data = count[0]
-        #Datos estadisticos(N° de arriendos por mes)
-        
-            #Arriendos por mes 
-        prom = np.mean(data)
-        print(prom)
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import linregress
 
-            #meses mas visitado por año
-        mesmax = self.months[np.argmax(data)]
-        print(mesmax)
-            #3 meses mas visitados por el año seleccionado
-        argsmax = []
-        for i in range(3):
-            argmax = np.argmax(data)
-            argsmax.append(argmax)
-            data = np.delete(data, argmax)
-        print(self.months[argsmax[0]])
-        print(self.months[argsmax[1]])
-        print(self.months[argsmax[2]])
-
-        #Datos esatdisticos(N° personas por región)
-        
-        argmax = np.argmax(data)
-        month =  self.region[argmax] # Region que se recibe mas visitas
-        print(month)
-        """
+x = np.array([2, 7,9,12,15])
+y = np.array([5, 15,3,4,18])
+slope, intercept, r_value, p_value, std_err = linregress(x, y)
+print("slope: %f, intercept: %f" % (slope, intercept))
+print("R-squared: %f" % r_value**2)
+  
+plt.figure(figsize=(15, 5))
+plt.plot(x, y, 'o', label='original data')
+plt.plot(x, intercept + slope*x, 'r', label='fitted line')
+plt.legend()
+plt.grid()
+plt.show()

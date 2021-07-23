@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1285</width>
-    <height>906</height>
+    <width>1293</width>
+    <height>905</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="MplWidget" name="MplWidget" native="true">
+   <widget class="MplWidget" name="MplRegion" native="true">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -26,7 +26,7 @@
       <height>501</height>
      </rect>
     </property>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layoutWidget_2">
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -35,7 +35,7 @@
        <height>61</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="2">
        <widget class="QSpinBox" name="agno">
         <property name="styleSheet">
@@ -53,7 +53,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_2">
         <property name="styleSheet">
          <string notr="true">font: 57 20pt &quot;Ubuntu&quot;;</string>
         </property>
@@ -65,11 +65,90 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>540</y>
+      <width>621</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Estadisticos</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>¿Cual es la región donde provienen mas arrendatarios?</string>
+         </property>
+         <widget class="QLabel" name="a">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>401</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Metropolitana</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>¿Porcentaje de la región que mas nos visitan repecto a las demás?</string>
+       </property>
+       <widget class="QLabel" name="c">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>411</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>35%</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>¿Las 3 regiones donde provienen mas arrendatarios?</string>
+       </property>
+       <widget class="QLabel" name="b">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>401</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Atacama</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>960</x>
-      <y>740</y>
+      <x>970</x>
+      <y>690</y>
       <width>221</width>
       <height>91</height>
      </rect>
@@ -82,112 +161,13 @@ color: rgb(238, 238, 236);</string>
      <string>Generar resumen</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_5">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>530</y>
-      <width>451</width>
-      <height>291</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Estadisticos</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="2" column="0">
-      <widget class="QGroupBox" name="groupBox_3">
-       <property name="title">
-        <string>¿3 Meses con mayor número de arriendos?</string>
-       </property>
-       <widget class="QLabel" name="c">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>411</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Marzo, abril y junio</string>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QGroupBox" name="groupBox_4">
-       <property name="title">
-        <string>¿Porcentaje de arriendo del mes con mayor numero de arriendo respecto a los demás?</string>
-       </property>
-       <widget class="QLabel" name="d">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>35%</string>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>¿Promedio de arriendos por mes?</string>
-         </property>
-         <widget class="QLabel" name="a">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>401</width>
-            <height>21</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>3 arriendos por mes </string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="title">
-        <string>¿Mes con mayor número de arriendos?</string>
-       </property>
-       <widget class="QLabel" name="b">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>401</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Marzo</string>
-        </property>
-       </widget>
-      </widget>
-     </item>
-    </layout>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1285</width>
+     <width>1293</width>
      <height>22</height>
     </rect>
    </property>

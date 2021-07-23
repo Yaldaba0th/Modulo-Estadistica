@@ -51,6 +51,12 @@ class Menu(base_1, form_1):
         self.cr = Clientes_region()
         self.cr.show()
 
+    def sugerencias():
+        r = requests.get('{}/sugerencias'.format(host))
+        r = r.json()['data']
+        sugs = [d["Sugerencia"] for d in r]
+        #sugs tiene las sugerencias como lista de strings
+
 
 class Clientes_mes(base_2, form_2):
     def __init__(self, *args, **kwargs):
@@ -196,8 +202,15 @@ class Clientes_region(base_3, form_3):
         agno = self.agno.value()
         y1 = agno
         y2 = agno
-        print(y1)
-        #Filtrar por año
+        resreg = [0] * 15
+        r = requests.get('{}/reservas_region_agno/{}/{}'.format(host, y1, y2))
+        r = r.json()['data']
+        for d in r:
+            try:
+                resreg[self.regiones.index(d["Procedencia"])] = d["count"]
+            except ValueError:
+                pass
+        #resreg ahora tiene las regiones en el mismo formato que la otra forma
 
 
 

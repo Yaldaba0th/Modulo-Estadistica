@@ -11,8 +11,8 @@ def query_to_json(query):
     return jsonify(result)
 
 
-#engine = 'mysql+pymysql://root@127.0.0.1/igmava'
-engine = 'mysql+pymysql://nacho:18752718@127.0.0.1/igmava'
+engine = 'mysql+pymysql://root@127.0.0.1/igmava'
+#engine = 'mysql+pymysql://nacho:18752718@127.0.0.1/igmava'
 db_connect = create_engine(engine)
 app = Flask(__name__)
 api = Api(app)

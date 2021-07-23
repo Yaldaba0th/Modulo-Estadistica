@@ -11,7 +11,8 @@ def query_to_json(query):
     return jsonify(result)
 
 
-engine = 'mysql+pymysql://root@127.0.0.1/igmava'
+#engine = 'mysql+pymysql://root@127.0.0.1/igmava'
+engine = 'mysql+pymysql://nacho:18752718@127.0.0.1/igmava'
 db_connect = create_engine(engine)
 app = Flask(__name__)
 api = Api(app)
@@ -36,6 +37,23 @@ def reservas_region():
     query = conn.execute(q)
     return query_to_json(query)
 
+@app.route('/reservas_region_agno/<y1>/<y2>', methods=['GET'])
+def reservas_region_agno(y1, y2):
+    conn = db_connect.connect()
+    q = "SELECT Procedencia, COUNT(*) as count FROM \
+        (SELECT Procedencia FROM \
+        Reserva INNER JOIN Cliente ON Reserva.RUT=Cliente.RUT \
+        WHERE Year(Check_in) >= '{}' and Year(Check_in) <= '{}') as myalias \
+        GROUP BY Procedencia;".format(y1, y2)
+    query = conn.execute(q)
+    return query_to_json(query)
+
+@app.route('/sugerencias', methods=['GET'])
+def sugerencias():
+    conn = db_connect.connect()
+    q = "SELECT Sugerencia FROM Reserva WHERE Length(Sugerencia)>0";
+    query = conn.execute(q)
+    return query_to_json(query)
 
 if __name__ == '__main__':
     app.run(port='8007')

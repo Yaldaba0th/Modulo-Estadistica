@@ -20,6 +20,8 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib.backends.backend_qt5agg \
     import FigureCanvasQTAgg as FigureCanvas
 from scipy.stats import linregress
+import pandas as pd
+from pandas import ExcelWriter
 
 
 uifile_1 = 'UIfiles/menu.ui'
@@ -98,10 +100,23 @@ class Clientes_mes(base_2, form_2):
         self.MplWidget.canvas.draw()
 
         self.cargarEstadisticos(count[0])
-
+        self.count = count[0]
         #== EVENTOS == #
         self.agn.valueChanged.connect(self.AgnoExtrapolar)
         self.agno.valueChanged.connect(self.FiltrarPorAgno)
+        self.generateR.clicked.connect(self.GenerarResumen)
+    
+    def GenerarResumen(self):
+        df = pd.DataFrame({'Meses': ['Enero', 'Febrero', 'Marzo', 'Abril',
+                    'Mayo', 'Junio', 'Julio', 'Agosto',
+                    'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                   'N° arrendatarios': self.count})
+        df = df[['Meses', 'N° arrendatarios']]
+        writer = ExcelWriter('Reporte_meses.xlsx')
+        df.to_excel(writer, 'Hoja de datos', index=False)
+        writer.save()
+        QMessageBox.information(self,"", "Resumen creado!!", QMessageBox.Ok)
+
     
     def AgnoExtrapolar(self):
         monthE = self.agn.value()*12
@@ -214,9 +229,19 @@ class Clientes_region(base_3, form_3):
         self.MplRegion.canvas.draw()
 
         self.cargarEstadisticos(resreg)
-        
+        self.resreg = resreg
         #== EVENTOS == #
         self.agno.valueChanged.connect(self.FiltrarPorAgno)
+        self.generateR.clicked.connect(self.GenerarResumen)
+    
+    def GenerarResumen(self):
+        df = pd.DataFrame({'Regiones': self.regiones,
+                   'N° de visitantes': self.resreg})
+        df = df[['Regiones', 'N° de visitantes']]
+        writer = ExcelWriter('Reporte_regiones.xlsx')
+        df.to_excel(writer, 'Hoja de datos', index=False)
+        writer.save()
+        QMessageBox.information(self,"", "Resumen creado!!", QMessageBox.Ok)
 
     def cargarEstadisticos(self, data):
         

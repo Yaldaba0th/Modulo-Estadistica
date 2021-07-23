@@ -60,7 +60,6 @@ class Menu(base_1, form_1):
         self.sgr = Sugrencias()
         self.sgr.show()
 
-
 class Clientes_mes(base_2, form_2):
     def __init__(self, *args, **kwargs):
         super(base_2, self).__init__(*args, **kwargs)
@@ -88,20 +87,27 @@ class Clientes_mes(base_2, form_2):
         self.MplWidget.canvas.ax.set_xticklabels(self.months, rotation=25)
         self.MplWidget.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         self.MplWidget.canvas.ax.set_ylim(0)
+        self.MplWidget.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         #Linea de tendencia
         x = np.array([0,1,2,3,4,5,6,7,8,9,10,11])
         y = count[0]
-        slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        self.MplWidget.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia', color='orange')
+        self.slope, self.intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplWidget.canvas.ax.plot(x, self.intercept + self.slope*x, '--', label='Linea de tendencia', color='orange')
         self.MplWidget.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
-
-        self.MplWidget.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
+        
         self.MplWidget.canvas.draw()
+
         self.cargarEstadisticos(count[0])
 
-        # Eventos
+        #== EVENTOS == #
+        self.agn.valueChanged.connect(self.AgnoExtrapolar)
         self.agno.valueChanged.connect(self.FiltrarPorAgno)
-            
+    
+    def AgnoExtrapolar(self):
+        monthE = self.agn.value()*12
+        est = self.intercept + self.slope*monthE
+        self.number.setText(str(est))
+
     def cargarEstadisticos(self, data):
         #Arriendos por mes 
         prom = np.mean(data)
@@ -129,6 +135,9 @@ class Clientes_mes(base_2, form_2):
 
 
     def FiltrarPorAgno(self):
+        self.agn.setValue(0)
+        self.number.setText('')
+
         agno = self.agno.value()
         y1 = agno
         y2 = agno
@@ -148,15 +157,17 @@ class Clientes_mes(base_2, form_2):
         self.MplWidget.canvas.ax.set_xticklabels(self.months, rotation=25)
         self.MplWidget.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         self.MplWidget.canvas.ax.set_ylim(0)
+        
         #Linea de tendencia
         x = np.array([0,1,2,3,4,5,6,7,8,9,10,11])
         y = count[0]
-        slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        self.MplWidget.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia',  color='orange')
+        self.slope, self.intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplWidget.canvas.ax.plot(x, self.intercept + self.slope*x, '--', label='Linea de tendencia',  color='orange')
         self.MplWidget.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
-
         self.MplWidget.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         self.MplWidget.canvas.draw()
+
+
         self.cargarEstadisticos(count[0])
 
 class Clientes_region(base_3, form_3):
@@ -171,8 +182,6 @@ class Clientes_region(base_3, form_3):
                 "Rios", "Arica"]
         
         resreg = [0] * 15            
-        #Realizar la consulta por año.
-        #----------------------------
         r = requests.get('{}/reservas_region'.format(host))
         r = r.json()['data']
 
@@ -194,19 +203,20 @@ class Clientes_region(base_3, form_3):
         self.MplRegion.canvas.ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         self.MplRegion.canvas.ax.set_ylim(0)
 
+        #Linea de tendencia
         x = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14])
         y = resreg
-        slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        self.MplRegion.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia', color='orange')
+        self.slope, self.intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplRegion.canvas.ax.plot(x, self.intercept + self.slope*x, '--', label='Linea de tendencia', color='orange')
         self.MplRegion.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
 
         self.MplRegion.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         self.MplRegion.canvas.draw()
-        self.cargarEstadisticos(resreg)
 
-        #Eventos
+        self.cargarEstadisticos(resreg)
+        
+        #== EVENTOS == #
         self.agno.valueChanged.connect(self.FiltrarPorAgno)
-    
 
     def cargarEstadisticos(self, data):
         
@@ -231,6 +241,7 @@ class Clientes_region(base_3, form_3):
         self.b.setText(text)
     
     def FiltrarPorAgno(self):
+
         agno = self.agno.value()
         y1 = agno
         y2 = agno
@@ -257,14 +268,14 @@ class Clientes_region(base_3, form_3):
 
         x = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14])
         y = resreg
-        slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        self.MplRegion.canvas.ax.plot(x, intercept + slope*x, '--', label='Linea de tendencia', color='orange')
+        self.slope, self.intercept, r_value, p_value, std_err = linregress(x, y)
+        self.MplRegion.canvas.ax.plot(x, self.intercept + self.slope*x, '--', label='Linea de tendencia', color='orange')
         self.MplRegion.canvas.ax.legend(loc=1, ncol=3, bbox_to_anchor=(0.75, 1))
 
         self.MplRegion.canvas.ax.grid(color="green", which="major", axis='both', linestyle=':', linewidth=0.5)
         self.MplRegion.canvas.draw()
+
         self.cargarEstadisticos(resreg)
-        #resreg ahora tiene las regiones en el mismo formato que la otra forma
 
 class Sugrencias(base_4, form_4):
     def __init__(self, *args, **kwargs):
@@ -279,7 +290,6 @@ class Sugrencias(base_4, form_4):
             self.tableSuger.insertRow(row)
             self.tableSuger.setItem(row, 0, QTableWidgetItem(sug))
         
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Menu()
